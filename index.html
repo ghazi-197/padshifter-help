@@ -1,0 +1,423 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>PadShifter — User Guide</title>
+<style>
+:root{--tw:0.3s;--sw:280px;--hh:56px;--fs:'Segoe UI',system-ui,sans-serif;--fm:'Consolas',monospace}
+[data-theme="dark"]{--bp:#1a1b26;--bs:#1e1f2b;--bt:#242536;--bc:#13141c;--tp:#e1e2e7;--ts:#a6a7b5;--tm:#6b6c7a;--ac:#7aa2f7;--ah:#89b4fa;--as:rgba(122,162,247,0.12);--bd:#2f3145;--bl:#363852;--tsr:rgba(255,255,255,0.02);--th:rgba(122,162,247,0.08);--bcv:#7aa2f7;--bct:#1a1b26;--bev:#bb9af7;--bet:#1a1b26;--bcf:#f7768e;--bcef:#1a1b26;--ss:0 1px 3px rgba(0,0,0,0.3);--sm:0 4px 16px rgba(0,0,0,0.4);--sl:0 8px 32px rgba(0,0,0,0.5);--gh:linear-gradient(135deg,#1a1b26,#242536);--stk:#1e1f2b;--sth:#363852}
+[data-theme="light"]{--bp:#fff;--bs:#f8f9fc;--bt:#eef0f6;--bc:#f1f3f8;--tp:#1e1e2e;--ts:#555568;--tm:#8888a0;--ac:#3a6dd4;--ah:#2b5cb8;--as:rgba(58,109,212,0.08);--bd:#d8dae6;--bl:#e4e6f0;--tsr:rgba(0,0,0,0.02);--th:rgba(58,109,212,0.06);--bcv:#3a6dd4;--bct:#fff;--bev:#8b5cf6;--bet:#fff;--bcf:#e63946;--bcef:#fff;--ss:0 1px 3px rgba(0,0,0,0.08);--sm:0 4px 16px rgba(0,0,0,0.1);--sl:0 8px 32px rgba(0,0,0,0.14);--gh:linear-gradient(135deg,#f8f9fc,#eef0f6);--stk:#f0f1f5;--sth:#c0c3d0}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--hh)+16px)}
+body{font-family:var(--fs);font-size:15px;line-height:1.7;color:var(--tp);background:var(--bp);transition:background var(--tw),color var(--tw);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-track{background:var(--stk)}::-webkit-scrollbar-thumb{background:var(--sth);border-radius:4px}::-webkit-scrollbar-thumb:hover{background:var(--ac)}
+.header{position:fixed;top:0;left:0;right:0;height:var(--hh);background:var(--bs);border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:1000;transition:background var(--tw),border-color var(--tw);box-shadow:var(--ss)}
+.header-left{display:flex;align-items:center;gap:16px}
+.hamburger{display:none;background:none;border:none;color:var(--tp);font-size:22px;cursor:pointer;padding:4px;line-height:1}
+.logo{font-size:18px;font-weight:700;color:var(--ac);letter-spacing:-0.3px;user-select:none}
+.logo span{color:var(--tm);font-weight:400;font-size:13px;margin-left:8px}
+.header-right{display:flex;align-items:center;gap:12px}
+.theme-toggle{background:var(--bt);border:1px solid var(--bd);color:var(--tp);border-radius:8px;padding:6px 14px;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all var(--tw);font-family:var(--fs)}
+.theme-toggle:hover{border-color:var(--ac);background:var(--as)}
+.theme-toggle .icon{font-size:16px}
+.sidebar{position:fixed;top:var(--hh);left:0;bottom:0;width:var(--sw);background:var(--bs);border-right:1px solid var(--bd);overflow-y:auto;padding:20px 0;transition:transform var(--tw),background var(--tw),border-color var(--tw);z-index:900}
+.sidebar-overlay{display:none;position:fixed;inset:0;top:var(--hh);background:rgba(0,0,0,0.4);z-index:899}
+.sidebar-section-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--tm);padding:12px 24px 6px}
+.sidebar-nav{list-style:none}
+.sidebar-nav li a{display:block;padding:7px 24px;color:var(--ts);text-decoration:none;font-size:13.5px;border-left:3px solid transparent;transition:all 0.15s}
+.sidebar-nav li a:hover{color:var(--tp);background:var(--as)}
+.sidebar-nav li a.active{color:var(--ac);border-left-color:var(--ac);background:var(--as);font-weight:600}
+.main{margin-left:var(--sw);margin-top:var(--hh);min-height:calc(100vh - var(--hh));padding:40px 48px 80px;max-width:960px}
+.section{margin-bottom:56px}
+.hero{background:var(--gh);border:1px solid var(--bd);border-radius:16px;padding:48px;margin-bottom:48px;box-shadow:var(--sm);text-align:center;transition:background var(--tw),border-color var(--tw)}
+.hero h1{font-size:36px;font-weight:800;color:var(--ac);margin-bottom:8px;letter-spacing:-0.5px}
+.hero .subtitle{font-size:17px;color:var(--ts);max-width:640px;margin:0 auto;line-height:1.8}
+.hero .version{margin-top:16px;font-size:12px;color:var(--tm);font-family:var(--fm)}
+.hero-logo{display:block;width:128px;height:auto;max-width:100%;margin:0 auto 24px}
+h2{font-size:26px;font-weight:700;color:var(--tp);margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid var(--ac);display:inline-block;letter-spacing:-0.3px}
+h3{font-size:20px;font-weight:600;color:var(--tp);margin:32px 0 14px}
+p{margin-bottom:14px;color:var(--ts)}
+ul,ol{margin:0 0 16px 24px;color:var(--ts)}
+ul li,ol li{margin-bottom:8px}
+ul li strong,ol li strong{color:var(--tp)}
+.badge{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;padding:2px 10px;border-radius:4px;vertical-align:middle}
+.badge-canvas{background:var(--bcv);color:var(--bct)}.badge-editor{background:var(--bev);color:var(--bet)}.badge-conflict{background:var(--bcf);color:var(--bcef)}
+.badge-optional{background:var(--tm);color:var(--bp)}
+.table-wrapper{overflow-x:auto;margin:20px 0;border:1px solid var(--bd);border-radius:10px;box-shadow:var(--ss);transition:border-color var(--tw)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+thead{background:var(--bt)}
+thead th{text-align:left;padding:12px 16px;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.8px;color:var(--tm);border-bottom:2px solid var(--bd)}
+tbody tr{transition:background 0.15s}
+tbody tr:nth-child(even){background:var(--tsr)}
+tbody tr:hover{background:var(--th)}
+tbody td{padding:10px 16px;border-bottom:1px solid var(--bl);color:var(--ts);vertical-align:top}
+tbody td:first-child{font-family:var(--fm);font-size:13px;font-weight:600;color:var(--ac);white-space:nowrap}
+.callout{border-radius:10px;padding:16px 20px;margin:20px 0;border-left:4px solid var(--ac);background:var(--as);color:var(--ts);font-size:14px}
+.callout.warning{border-left-color:#f7768e;background:rgba(247,118,142,0.08)}
+.callout strong{color:var(--tp)}
+details{border:1px solid var(--bd);border-radius:10px;background:var(--bs);margin:16px 0;transition:border-color var(--tw)}
+details[open]{padding-bottom:6px}
+details summary{cursor:pointer;padding:13px 16px;font-weight:600;font-size:14.5px;color:var(--ac);list-style:none;display:flex;align-items:center;gap:9px;user-select:none;border-radius:10px}
+details summary::-webkit-details-marker{display:none}
+details summary::before{content:"\25B8";font-size:11px;color:var(--tm);transition:transform .18s}
+details[open] summary::before{transform:rotate(90deg)}
+details summary:hover{background:var(--as)}
+details summary:hover::before{color:var(--ac)}
+details > p{margin:0 16px 16px;color:var(--ts)}
+.steps{counter-reset:sc;list-style:none;margin-left:0;padding-left:0}
+.steps li{counter-increment:sc;position:relative;padding-left:44px;margin-bottom:16px}
+.steps li::before{content:counter(sc);position:absolute;left:0;top:2px;width:30px;height:30px;border-radius:50%;background:var(--ac);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+.footer{text-align:center;padding:32px 24px;color:var(--tm);font-size:13px;border-top:1px solid var(--bd);margin-top:48px;transition:border-color var(--tw)}
+@media(max-width:860px){.hamburger{display:block}.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0);box-shadow:var(--sl)}.sidebar-overlay.show{display:block}.main{margin-left:0;padding:28px 20px 60px}.hero{padding:32px 20px}.hero h1{font-size:28px}}
+@media(max-width:500px){.hero h1{font-size:24px}.hero .subtitle{font-size:15px}h2{font-size:22px}h3{font-size:18px}tbody td:first-child{font-size:12px}}
+</style>
+</head>
+<body>
+<header class="header">
+<div class="header-left">
+<button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation">&#9776;</button>
+<div class="logo">PadShifter <span>User Guide</span></div>
+</div>
+<div class="header-right">
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+<span class="icon" id="themeIcon">&#9728;</span><span id="themeLabel">Light</span>
+</button>
+</div>
+</header>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<nav class="sidebar" id="sidebar">
+<div class="sidebar-section-title">Overview</div>
+<ul class="sidebar-nav">
+<li><a href="#about" class="active">About PadShifter</a></li>
+<li><a href="#core-idea">The Core Idea</a></li>
+<li><a href="#how-it-works">How It Works</a></li>
+</ul>
+<div class="sidebar-section-title">Modes</div>
+<ul class="sidebar-nav">
+<li><a href="#canvas-mode">Canvas Mode</a></li>
+<li><a href="#editor-mode">Text Editor Mode</a></li>
+</ul>
+<div class="sidebar-section-title">Reference</div>
+<ul class="sidebar-nav">
+<li><a href="#key-features">Key Features</a></li>
+<li><a href="#technical">Technical Overview</a></li>
+<li><a href="#global-hotkeys">Global Hotkeys</a></li>
+<li><a href="#canvas-hotkeys">Canvas Hotkeys <span class="badge badge-canvas">Canvas</span></a></li>
+<li><a href="#editor-hotkeys">Editor Hotkeys <span class="badge badge-editor">Editor</span></a></li>
+<li><a href="#hotkey-conflicts">Hotkey Conflicts <span class="badge badge-conflict">!</span></a></li>
+<li><a href="#local-ai">Local AI (Ollama)</a></li>
+</ul>
+</nav>
+<main class="main">
+<div class="hero">
+<img class="hero-logo" src="data:image/png;base64,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" alt="PadShifter" width="128" height="128">
+<h1>PadShifter</h1>
+<p class="subtitle">A dual-mode productivity application that combines a <strong>visual canvas</strong> and a <strong>text editor</strong> into a single, unified workspace &mdash; organized around <strong>application-specific notes</strong>.</p>
+<p class="version">v1.0.1 &mdash; User Guide &amp; Keyboard Shortcuts Reference</p>
+</div>
+<section class="section" id="about">
+<h2>About PadShifter</h2>
+<p>PadShifter is designed for Windows and gives you a persistent, personalized workspace for every application you use. It monitors which application is in the foreground and instantly presents the notes, canvases, and editor tabs you created for that specific app.</p>
+<p>Whether you&apos;re organizing reference images for a design project, or keeping track of research links in your browser &mdash; PadShifter keeps everything neatly separated and always at hand.</p>
+</section>
+<section class="section" id="core-idea">
+<h2>The Core Idea</h2>
+<p>PadShifter monitors the foreground application and presents a personalized workspace for each one. Within every application&apos;s workspace you can create multiple <strong>tabs</strong>, and each tab can be either:</p>
+<ul>
+<li><strong>&#128211; A Canvas</strong> &mdash; a freeform visual surface for arranging images, placing text blocks, and drawing freehand annotations.</li>
+<li><strong>&#128221; A Text Editor</strong> &mdash; with built-in highlighting for Markdown, links, code spans, dates, e-mails, file paths and numbers with units, search/replace, auto-bracket closing, bracket highlighting, and RTL/LTR text auto-detection (including Arabic and Hebrew).</li>
+</ul>
+<p>This means you can have one set of notes for your IDE, another for your browser, another for your design tool, and so on &mdash; each with its own collection of canvas and text tabs, all persisted automatically.</p>
+</section>
+<section class="section" id="how-it-works">
+<h2>How It Works</h2>
+<ol class="steps">
+<li><strong>Launch PadShifter.</strong> The window appears (optionally in the system tray if configured to start hidden).</li>
+<li><strong>Switch to your target application.</strong> PadShifter detects the foreground app and loads its associated workspace.</li>
+<li><strong>Create tabs.</strong> Add text editor tabs for notes, snippets or longer text, and canvas tabs for visual organization.</li>
+<li><strong>Work freely.</strong> Add images, draw, write text, and arrange everything. Changes are auto-saved.</li>
+<li><strong>Switch apps.</strong> When you move to another application, PadShifter seamlessly loads that app&apos;s workspace.</li>
+<li><strong>Return anytime.</strong> All state is preserved &mdash; zoom levels, scroll positions, open tabs, canvas layouts, everything.</li>
+</ol>
+</section>
+<section class="section" id="canvas-mode">
+<h2>Canvas Mode <span class="badge badge-canvas">Canvas</span></h2>
+<p>The Canvas is an <strong>infinite</strong> workspace where you can:</p>
+<ul>
+<li><strong>Import and arrange images</strong> &mdash; drag and drop or paste images from the clipboard. Images can be resized, rotated, cropped, and adjusted for opacity; right-click &rarr; <strong>Transform</strong> gives <strong>Flip Horizontal</strong>, <strong>Flip Vertical</strong> and <strong>Reset Transform</strong> (<strong>Ctrl + Shift + 1</strong>).</li>
+<li><strong>Add text blocks</strong> &mdash; place formatted text anywhere on the canvas with control over font, size, color, bold, italic, underline, strikethrough, line spacing and alignment (the L/C/R button in the text toolbar opens a Left / Center / Right menu, and the &times;-value button opens a 0.5&times;-to-2.0&times; menu for multi-line blocks &mdash; 1.0&times; is the font's natural spacing and values below it tighten fonts whose default spacing is loose; both buttons show the current choice). While typing, <strong>Shift+Enter</strong> adds a new line; <strong>Enter</strong> or clicking away finishes the text.</li>
+<li><strong>Freehand draw</strong> &mdash; use the pen tool to sketch annotations, highlights, and freehand strokes with configurable color, thickness, and smoothing levels.</li>
+<li><strong>Eyedropper</strong> &mdash; press the <strong>&ldquo;Pick Color from Canvas&rdquo;</strong> toolbar button, then click any pixel: that color becomes your current stroke and text color, and it is also copied to the clipboard as a hex code (for example <code>#4A90D9</code>) ready to paste anywhere. Any selected text or strokes take the color too &mdash; one undo reverses the pick (a locked group is left untouched). Press <strong>Escape</strong> to cancel before clicking.</li>
+<li><strong>Group and lock items</strong> &mdash; group related elements together and lock them to prevent accidental changes.</li>
+<li><strong>Organize with layout tools</strong> &mdash; right-click &rarr; <strong>Arrange</strong> lays everything out as a uniform grid, a square, an equal-height row, a proportional row, an equal-width column, a proportional column. Align and distribute selected items precisely.</li>
+<li><strong>Adjust z-order</strong> &mdash; move items forward, backward, to front, or to back.</li>
+<li><strong>Use smart guides and grid</strong> &mdash; snap-to-grid and alignment guides help you place items precisely.</li>
+<li><strong>Zoom and pan</strong> &mdash; navigate large canvases with smooth zooming and panning, and right-click &rarr; View &rarr; <strong>Fit All Images</strong> to frame the whole board at once.</li>
+<li><strong>Undo/redo</strong> &mdash; full history management with a configurable undo depth (up to 1000 steps).</li>
+<li><strong>Clear the board</strong> &mdash; right-click &rarr; <strong>Clear Canvas</strong> removes every image and text block after a confirmation prompt except for the locked group, while <strong>Clear All Strokes</strong> erases your drawings and leaves everything else alone.</li>
+<li><strong>Export the viewport</strong> &mdash; export the current canvas view as a PNG file at <strong>1&times;</strong>, <strong>2&times;</strong> or <strong>4&times;</strong> (right-click &rarr; Export &rarr; Export Canvas as PNG): 1&times; is the size you see, while 2&times;/4&times; re-render text and lines razor-sharp and pull photos up to their source detail. <strong>Ctrl+E</strong> exports at your last-picked scale.</li>
+<li><strong>Export selected images</strong> &mdash; select images and right-click &rarr; Export &rarr; <strong>Export Images&hellip;</strong> to copy their original files into a folder you pick: files are <strong>never overwritten</strong> &mdash; a name that already exists there (or repeats within the batch) is saved as <strong>name (2).ext</strong>, <strong>name (3).ext</strong>&hellip; instead, and the summary says how many were renamed. Large batches show a progress overlay while they copy.</li>
+<li><strong>Contact sheet</strong> &mdash; right-click &rarr; Export &rarr; <strong>Contact Sheet (HTML)&hellip;</strong> saves the whole tab as one self-contained HTML page: a numbered grid of every image, each captioned with its file name. The thumbnails travel inside the file itself, so it opens in any browser anywhere &mdash; wearing your current PadShifter theme (light or dark); every thumbnail is a fixed 512 px, so quality never depends on how many images the tab holds &mdash; a very full tab simply makes a larger file.</li>
+<li><strong>Peek preview</strong> &mdash; right-click &rarr; View &rarr; <strong>Peek preview</strong> opens one image full-window at full quality &mdash; no zooming the canvas needed. With images selected it steps through <strong>only the selected images</strong>; with nothing selected it walks the whole board, starting top-left. <strong>&larr;</strong> / <strong>&rarr;</strong> or the mouse wheel step through them in reading order, and <strong>Esc</strong> or a click on the background closes it. The canvas itself never changes &mdash; peek is a look, not an edit.</li>
+<li><strong>Compare (A/B)</strong> &mdash; right-click &rarr; View &rarr; <strong>Compare (A/B)</strong> stacks two images in the peek viewer behind a <strong>draggable divider</strong>: everything left of the line is image A, everything right is image B &mdash; wipe across to spot the difference between renders. It pairs up your selection (or the first two on the board when nothing is selected), and with more than two images <strong>&larr;</strong> / <strong>&rarr;</strong> slide the pair along. Same full-quality decode as peek; <strong>Esc</strong> closes.</li>
+</ul>
+<div class="callout"><strong>Canvas Tools:</strong> The Canvas supports four tools &mdash; <strong>Move Image</strong>, <strong>Pan Canvas</strong>, <strong>Add Text</strong>, and <strong>Draw</strong> &mdash; switchable from the toolbar or via keyboard shortcuts.</div>
+</section>
+<section class="section" id="editor-mode">
+<h2>Text Editor Mode <span class="badge badge-editor">Editor</span></h2>
+<p>The built-in text editor provides a rich editing experience:</p>
+<ul>
+<li>A lightweight text editing experience with <strong>line numbers</strong> and <strong>current-line highlighting</strong>.</li>
+<li><strong>Optional code folding</strong> &mdash; collapse indented blocks with the +/&minus; markers in the editor&apos;s left gutter.</li>
+<li><strong>Bracket auto-closing</strong> and <strong>bracket matching highlights</strong>.</li>
+<li><strong>Auto-detection of text direction</strong> (RTL for Arabic/Hebrew, LTR for Latin/Greek/Cyrillic).</li>
+<li><strong>Find and Replace</strong> with case-sensitive search, forward/backward navigation, and match counting.</li>
+<li><strong>Click-through paths and links</strong> &mdash; hover a URL or file path in your text and hold <strong>Ctrl</strong>: the cursor turns into a hand and a click opens it &mdash; URLs in your browser (<code>www.</code> addresses included) and paths in Explorer with the file selected.</li>
+<li>Full keyboard shortcut support (copy, paste, select all, save, etc.).</li>
+<li>Scroll position are <strong>persisted per tab</strong>, so you return exactly where you left off.</li>
+</ul>
+</section>
+<section class="section" id="key-features">
+<h2>Key Features</h2>
+<div class="table-wrapper">
+<table><thead><tr><th style="width:35%">Feature</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>Per-App Workspaces</td><td>Each detected application gets its own isolated set of tabs and notes.</td></tr>
+<tr><td>Auto-Save</td><td>Content is automatically saved at the interval picked in Settings (default: every 15 seconds; can be turned off).</td></tr>
+<tr><td>Manual Save</td><td>Save any active tab at any time with a keyboard shortcut or toolbar button.</td></tr>
+<tr><td>Backup &amp; Restore</td><td>Export your app data (database, notes, assets, and cached thumbnails, so a restore doesn't have to regenerate them) or import from a previous backup.</td></tr>
+<tr><td>Tab Management</td><td>Create, rename, delete, reorder, and close tabs with drag-and-drop support.</td></tr>
+<tr><td>Persistent State</td><td>Zoom level, pan offset, scroll position, and selection are all restored when you reopen a tab.</td></tr>
+<tr><td>Always-on-Top</td><td>The window stays on top of other applications by default, configurable in settings.</td></tr>
+<tr><td>System Tray</td><td>Minimize to the system tray with a right-click context menu.</td></tr>
+<tr><td>Theme Support</td><td>Light and dark themes with full UI theming.</td></tr>
+<tr><td>Fullscreen Mode</td><td>Enter fullscreen for distraction-free viewing.</td></tr>
+<tr><td>Single Instance</td><td>Only one instance of PadShifter runs at a time; launching again brings the existing window to the front.</td></tr>
+<tr><td>Smart Window Detection</td><td>Automatically detects which application you&apos;re working with and switches to its workspace.</td></tr>
+<tr><td>Configurable Undo Depth</td><td>Set the number of undo steps the canvas retains.</td></tr>
+<tr><td>Stroke Smoothing</td><td>Choose between Normal, Smooth, Very Smooth, or Ultra Smooth for freehand drawing.</td></tr>
+<tr><td>Startup Integration</td><td>Optionally launch PadShifter on Windows startup (with optional hidden-start mode).</td></tr>
+<tr><td>Local AI (Ollama)</td><td>Optional connection to a local Ollama server powering offline AI features (configured in Settings &rarr; AI).</td></tr>
+</tbody></table>
+</div>
+</section>
+<section class="section" id="technical">
+<h2>Technical Overview</h2>
+<div class="table-wrapper">
+<table><thead><tr><th style="width:30%">Component</th><th>Details</th></tr></thead>
+<tbody>
+<tr><td>Platform</td><td>Windows (x64)</td></tr>
+<tr><td>Framework</td><td>.NET 10.0</td></tr>
+<tr><td>Rendering</td><td>SkiaSharp for high-performance 2D canvas rendering with thumbnail caching</td></tr>
+<tr><td>Text Editor</td><td>AvalonEdit text editing</td></tr>
+<tr><td>Database</td><td>SQLite &mdash; stores your notes, settings, and canvas state</td></tr>
+<tr><td>Data Storage</td><td>Everything lives in a local folder on this PC &mdash; nothing is ever uploaded. Use <strong>Open data folder</strong> in Settings &rarr; About to open it.</td></tr>
+</tbody></table>
+</div>
+</section>
+<section class="section" id="global-hotkeys">
+<h2>Global Hotkeys</h2>
+<p>These shortcuts work no matter which tab is open &mdash; canvas or editor.</p>
+<div class="table-wrapper">
+<table><thead><tr><th>Shortcut</th><th>Action</th></tr></thead>
+<tbody>
+<tr><td>F1</td><td>Open this User Guide</td></tr>
+<tr><td>F11</td><td>Toggle Fullscreen</td></tr>
+<tr><td>Ctrl + S</td><td>Save the active tab</td></tr>
+<tr><td>Ctrl + Tab</td><td>Cycle to the next tab</td></tr>
+<tr><td>Ctrl + Shift + Tab</td><td>Cycle to the previous tab</td></tr>
+</tbody></table></div>
+</section>
+<section class="section" id="canvas-hotkeys">
+<h2>Canvas Hotkeys <span class="badge badge-canvas">Canvas</span></h2>
+<h3>Tools &amp; Navigation</h3>
+<div class="table-wrapper">
+<table><thead><tr><th>Shortcut</th><th>Action</th></tr></thead>
+<tbody>
+<tr><td>V</td><td>Switch to Move Tool</td></tr>
+<tr><td>H</td><td>Switch to Pan Tool</td></tr>
+<tr><td>Ctrl + Scroll / Shift + Scroll</td><td>Slow / Fast Zoom In or Out</td></tr>
+<tr><td>Ctrl + Shift + Scroll</td><td>Adjust opacity of the selected images</td></tr>
+<tr><td>Space</td><td>Fit to View</td></tr>
+<tr><td>Ctrl + 1 / Ctrl + NumPad 1</td><td>Reset zoom to 100% at the cursor</td></tr>
+</tbody></table></div>
+<h3>History</h3>
+<div class="table-wrapper">
+<table><thead><tr><th>Shortcut</th><th>Action</th></tr></thead>
+<tbody>
+<tr><td>Ctrl + Z</td><td>Undo</td></tr>
+<tr><td>Ctrl + Y</td><td>Redo</td></tr>
+<tr><td>Ctrl + Shift + Z</td><td>Redo</td></tr>
+</tbody></table></div>
+<h3>Selection &amp; Manipulation</h3>
+<div class="table-wrapper">
+<table><thead><tr><th>Shortcut</th><th>Action</th></tr></thead>
+<tbody>
+<tr><td>Ctrl + A</td><td>Select All</td></tr>
+<tr><td>&larr; &rarr; &uarr; &darr;</td><td>Nudge Selection by 1px</td></tr>
+<tr><td>Shift + &larr; &rarr; &uarr; &darr;</td><td>Nudge Selection by 10px</td></tr>
+<tr><td>Ctrl + D</td><td>Duplicate Selected</td></tr>
+<tr><td>Delete</td><td>Delete Selected</td></tr>
+<tr><td>Ctrl + Shift + C</td><td>Copy Selected (canvas clipboard)</td></tr>
+<tr><td>Ctrl + Shift + X</td><td>Cut Selected (canvas clipboard)</td></tr>
+<tr><td>Ctrl + Shift + V</td><td>Paste from canvas clipboard</td></tr>
+<tr><td>Ctrl + V</td><td>Paste from system clipboard</td></tr>
+</tbody></table></div>
+<h3>Grouping &amp; Locking</h3>
+<div class="table-wrapper">
+<table><thead><tr><th>Shortcut</th><th>Action</th></tr></thead>
+<tbody>
+<tr><td>Ctrl + G</td><td>Group Selection</td></tr>
+<tr><td>Ctrl + Shift + G</td><td>Ungroup Selection</td></tr>
+<tr><td>Ctrl + L</td><td>Toggle Lock Selection</td></tr>
+</tbody></table></div>
+<div class="callout"><strong>Working inside a group:</strong> hold <strong>Shift</strong> and click an item to select it on its own, or hold <strong>Shift</strong> while dragging a marquee &mdash; only the items you touch are selected instead of the whole group. With <strong>two or more</strong> of them selected, <strong>Ctrl + G</strong> turns them into a <em>new, separate</em> group while the rest of the original group stays grouped; <strong>Ctrl + Shift + G</strong> releases the selection back as singles. Locked groups are atomic &mdash; you cannot select inside one, so unlock it first with <strong>Ctrl + L</strong>.</div>
+<h3>Alignment &amp; Distribution</h3>
+<div class="table-wrapper">
+<table><thead><tr><th>Shortcut</th><th>Action</th></tr></thead>
+<tbody>
+<tr><td>Ctrl + Shift + L</td><td>Align Left</td></tr>
+<tr><td>Ctrl + Shift + R</td><td>Align Right</td></tr>
+<tr><td>Ctrl + Shift + T</td><td>Align Top</td></tr>
+<tr><td>Ctrl + Shift + B</td><td>Align Bottom</td></tr>
+<tr><td>Ctrl + Shift + H</td><td>Align Center Horizontal</td></tr>
+<tr><td>Ctrl + Shift + M</td><td>Align Center Vertical</td></tr>
+<tr><td>Ctrl + Shift + D</td><td>Distribute Horizontal</td></tr>
+<tr><td>Ctrl + Shift + S</td><td>Distribute Vertical</td></tr>
+</tbody></table></div>
+<h3>Z-Order</h3>
+<div class="table-wrapper">
+<table><thead><tr><th>Shortcut</th><th>Action</th></tr></thead>
+<tbody>
+<tr><td>Ctrl + &uarr;</td><td>Bring Forward</td></tr>
+<tr><td>Ctrl + Shift + &uarr;</td><td>Bring to Front</td></tr>
+<tr><td>Ctrl + &darr;</td><td>Send Backward</td></tr>
+<tr><td>Ctrl + Shift + &darr;</td><td>Send to Back</td></tr>
+</tbody></table></div>
+<h3>Image Operations</h3>
+<div class="table-wrapper">
+<table><thead><tr><th>Shortcut</th><th>Action</th></tr></thead>
+<tbody>
+<tr><td>C</td><td>Enter Crop Mode (on selected image)</td></tr>
+<tr><td>Enter</td><td>Commit Crop (when cropping)</td></tr>
+<tr><td>Escape</td><td>Cancel Crop (when cropping) / Cancel Eyedropper</td></tr>
+<tr><td>Ctrl + O</td><td>Open Image Source</td></tr>
+<tr><td>Ctrl + I</td><td>Import Images</td></tr>
+<tr><td>Ctrl + E</td><td>Export Canvas as PNG at the last-picked scale (1&times;/2&times;/4&times;)</td></tr>
+<tr><td>Ctrl + Shift + 1</td><td>Reset Selected Transform</td></tr>
+</tbody></table></div>
+<h3>Miscellaneous</h3>
+<div class="table-wrapper">
+<table><thead><tr><th>Shortcut</th><th>Action</th></tr></thead>
+<tbody>
+<tr><td>Ctrl + T</td><td>Show / Hide Toolbar</td></tr>
+<tr><td>Ctrl + ,</td><td>Open Settings</td></tr>
+</tbody></table></div>
+<div class="callout"><strong>Shift Modifier Notes:</strong>
+<ul style="margin-top:8px;margin-bottom:0">
+<li><strong>Shift</strong> + click (or <strong>Shift</strong> + drag a marquee) &rarr; Select single items inside a group instead of the whole group</li>
+<li><strong>Shift</strong> during rotation &rarr; Snap rotation to increments</li>
+<li><strong>Shift</strong> + arrow keys &rarr; Nudge by 10px instead of 1px</li>
+</ul></div>
+</section>
+<section class="section" id="editor-hotkeys">
+<h2>Editor Hotkeys <span class="badge badge-editor">Editor</span></h2>
+<div class="table-wrapper">
+<table><thead><tr><th>Shortcut</th><th>Action</th></tr></thead>
+<tbody>
+<tr><td>Ctrl + Z</td><td>Undo</td></tr>
+<tr><td>Ctrl + Shift + Z</td><td>Redo</td></tr>
+<tr><td>Ctrl + S</td><td>Save</td></tr>
+<tr><td>Ctrl + F</td><td>Open Search</td></tr>
+<tr><td>F3</td><td>Find Next</td></tr>
+<tr><td>Shift + F3</td><td>Find Previous</td></tr>
+<tr><td>Ctrl + D</td><td>Duplicate Line</td></tr>
+<tr><td>Ctrl + L</td><td>Delete Line</td></tr>
+<tr><td>Alt + &uarr;</td><td>Move Line Up</td></tr>
+<tr><td>Alt + &darr;</td><td>Move Line Down</td></tr>
+<tr><td>Ctrl + Shift + D</td><td>Insert Today&apos;s Date (ISO format)</td></tr>
+<tr><td>Ctrl + Shift + T</td><td>Insert Date + Time</td></tr>
+<tr><td>Ctrl + Shift + U</td><td>Transform Selection &rarr; UPPERCASE</td></tr>
+<tr><td>Ctrl + Shift + L</td><td>Transform Selection &rarr; lowercase</td></tr>
+<tr><td>Ctrl + Shift + K</td><td>Transform Selection &rarr; Title Case</td></tr>
+</tbody></table>
+</div>
+</section>
+<section class="section" id="hotkey-conflicts">
+<h2>Hotkey Conflicts <span class="badge badge-conflict">!</span></h2>
+<p>The following hotkeys have different meanings depending on which mode (Canvas or Editor) is currently active. Both contexts are fully functional &mdash; just be aware of the difference:</p>
+<div class="table-wrapper">
+<table><thead><tr><th>Shortcut</th><th>Canvas Action</th><th>Editor Action</th></tr></thead>
+<tbody>
+<tr><td>Ctrl + L</td><td>Toggle Lock Selection</td><td>Delete Line</td></tr>
+<tr><td>Ctrl + D</td><td>Duplicate Selected</td><td>Duplicate Line</td></tr>
+<tr><td>Ctrl + Shift + L</td><td>Align Left</td><td>Transform &rarr; lowercase</td></tr>
+<tr><td>Ctrl + Shift + T</td><td>Align Top</td><td>Insert Date + Time</td></tr>
+<tr><td>Ctrl + Shift + D</td><td>Distribute Horizontal</td><td>Insert Today&apos;s Date</td></tr>
+<tr><td>Ctrl + Shift + K</td><td>&mdash;</td><td>Transform &rarr; Title Case</td></tr>
+</tbody></table>
+</div>
+<div class="callout warning"><strong>Note:</strong> These conflicts exist because Canvas and Editor are separate contexts. Each hotkey performs the action appropriate for the currently active mode.</div>
+</section>
+<section class="section" id="local-ai">
+<h2>Local AI (Ollama) <span class="badge badge-optional">Optional</span></h2>
+<p>PadShifter can connect to a <strong>local Ollama server</strong> so AI features run fully offline on your own machine &mdash; nothing is ever uploaded. <strong>Everything in this section is optional</strong> &mdash; the Canvas and the editor work exactly the same without it.</p>
+<div class="table-wrapper">
+<table><thead><tr><th style="width:30%">Step</th><th>What to do</th></tr></thead>
+<tbody>
+<tr><td>1. Install Ollama</td><td>Get it from <strong>ollama.com</strong> and start it &mdash; it runs quietly in the background.</td></tr>
+<tr><td>2. Pull models</td><td>Install a chat model (e.g. <code>ollama pull llama3.2</code>) and, for image features, a vision model (e.g. <code>ollama pull llava</code>).</td></tr>
+<tr><td>3. Connect</td><td>Open <strong>Settings &rarr; AI</strong>, keep the default server URL (or point it at another machine on your network), press <strong>Test</strong>, then pick your chat and vision models from the installed list.</td></tr>
+</tbody></table>
+</div>
+<p>Models marked with <strong>◈</strong> can read images and are required for canvas image understanding. Changes take effect once you press <strong>Save</strong>.</p>
+<h3>AI Chat</h3>
+<p>Opens from the <strong>&#10022;</strong> button in the top bar on editor tabs &mdash; streamed replies rendered as markdown, model switching from the panel header, and a conversation that survives app restarts.</p>
+<details>
+<summary>Copy buttons, moods, the 8,000-character cap and the context meter</summary>
+<p><strong>AI Chat:</strong> once connected, the <strong>✦</strong> button in the top bar opens a chat panel on editor tabs &mdash; talk to your chat model with streamed replies, switch models from the panel header; the current tab's text is attached as context &mdash; long files are sent from the top, capped at about 60,000 characters (less if the conversation needs the room). Replies render markdown like a web chat &mdash; headings, bold, lists, links and highlighted code blocks. The conversation is kept across app restarts. Hover any message for a <strong>⧉</strong> copy button (AI replies copy without markdown markers). Long messages open squashed to a short preview with a <strong>Show more</strong> button &mdash; only one message stays expanded at a time (opening another collapses the previous one), and copying always gives the full text. The <strong>&#8635;</strong> button in the panel header regenerates the last reply with the current model &mdash; handy after switching models. A <strong>Mood</strong> button in the panel header picks the assistant's personality for chat &mdash; <strong>Neutral</strong> (default), <strong>Sarcastic</strong>, <strong>Silly</strong>, <strong>Grumpy</strong> and one more you'll discover by clicking it &mdash; pure fun that changes how replies come back; the pick is remembered across restarts and applies to this chat only (grouping, extraction and Ask always run plain). While the panel is empty, starter chips drop common questions into the box. Messages you send are capped at <strong>8,000 characters</strong> (a practical composer limit, chosen so any single message fits comfortably inside every realistic local-model window) — paste something longer and the box trims it at the cap with a note, so split long content across messages. A slim <strong>context meter</strong> sits at the right end of that hint line: it shows how much of the model's context window the draft, the open tab and the whole conversation together would use &mdash; green with a percent while everything fits, orange as it fills, and red with a <strong>keeping X of Y</strong> label once older messages start falling outside the window (hover it, or press the <strong>?</strong> beside it for the exact token split). It refreshes live while you type; if the server can't report the model's window, the meter and the send both fall back to a 32,768-token default. Enter sends, Shift+Enter starts a new line.</p>
+</details>
+<h3>AI image grouping</h3>
+<p>Right-click &rarr; <strong>AI &rarr; Group Images by Content</strong> sorts the images on a canvas by what they show and arranges them into one tightly packed block per category &mdash; on your selection, or on everything if nothing is selected.</p>
+<details>
+<summary>Category presets, block captions and what gets left alone</summary>
+
+<p><strong>AI image grouping:</strong> the local vision model can sort the images on a canvas by what they show and arrange them into one tightly packed block per category. Right-click and open <strong>AI &rarr; Grouping Preset</strong> to pick the category set: <strong>General</strong> (the default &mdash; animals, vehicles, nature, food, people, buildings, objects, other), <strong>Screenshots</strong> (screen, text, code, table, chart, diagram, photo, other) or <strong>Design refs</strong> (logo, ui, photo, poster, pattern, illustration, typography, other) &mdash; your pick sticks across restarts. Images you have selected are grouped; otherwise everything on the canvas is. Locked groups are never touched, a progress overlay lets you stop at any time, and the whole layout is a single undo. Every block also gets an editable caption above it showing the category name &mdash; rename, restyle, move or delete it like any text; re-running the grouping regenerates the captions.</p>
+</details>
+<h3>Extract text</h3>
+<p>Right-click &rarr; <strong>AI &rarr; Extract Text from Images</strong> reads the text shown in your images and lists it in a window with copy and save buttons. Nothing on the canvas changes.</p>
+<details>
+<summary>The results window, quality tips and picking a better vision model</summary>
+
+<p><strong>Extract text:</strong> the vision model can also read the text shown in an image &mdash; select images (or select nothing to take everything on the canvas, locked ones included) and choose <strong>AI &rarr; Extract Text from Images</strong>. The same progress overlay runs while the model works, then a window shows each image with a large preview, its original file name, the extracted text and copy buttons (<strong>⧉</strong> per entry, <strong>⧉ Copy all</strong> for everything at once, <strong>💾 Save</strong> to write the results to a .txt or .md file you pick). Click a preview to open the full-size image in your default viewer. Nothing on the canvas changes. How well it works depends on the vision model and how clear the text is &mdash; large, crisp text reads best, and very old models (such as llava) often read no text at all: if every result comes back empty, pick a different vision model in Settings &rarr; AI and run it again.</p>
+</details>
+<h3>Ask about selection</h3>
+<p>Select images and/or text items, right-click &rarr; <strong>AI &rarr; Ask about Selection&hellip;</strong> and type your question &mdash; Enter asks, Shift+Enter starts a new line. The selection reaches the model as one context, so &ldquo;which one shows&hellip;&rdquo; questions work.</p>
+<details>
+<summary>How many images attach, and cancelling a running request</summary>
+
+<p><strong>Ask about selection:</strong> select images and/or text items, right-click and choose <strong>AI &rarr; Ask about Selection&hellip;</strong> and type your question right in the dialog &mdash; Enter asks (Shift+Enter starts a new line). The selected images and their text labels reach the local model together as one context, so &ldquo;which one shows&hellip;&rdquo; questions work; how many images go in follows the model's own context window (the dialog's header always says how many will be attached &mdash; big-window models take far more, small-window ones take fewer instead of failing) and the answer appears in the same dialog with a <strong>⧉</strong> copy button; ask again as often as you like &mdash; a new question replaces the answer, and <strong>Esc</strong> or closing the dialog cancels a request that is still running. The header line always says what was selected and which model will answer: Ask always runs with the canvas's vision model from <strong>Settings &rarr; AI</strong> &mdash; the same one grouping and extraction use &mdash; whether the selection is images, text or both. The dialog only reads &mdash; nothing on the canvas changes.</p>
+</details>
+</section>
+<div class="footer">
+<p>PadShifter User Guide &mdash; v1.0.1</p>
+</div>
+</main>
+<script>
+(function(){
+var html=document.documentElement,toggle=document.getElementById("themeToggle"),icon=document.getElementById("themeIcon"),label=document.getElementById("themeLabel");
+function apply(t){html.setAttribute("data-theme",t);localStorage.setItem("ps-theme",t);if(t==="dark"){icon.innerHTML="&#9728;";label.textContent="Light"}else{icon.innerHTML="&#9790;";label.textContent="Dark"}}
+var s=localStorage.getItem("ps-theme");if(s)apply(s);
+toggle.addEventListener("click",function(){var c=html.getAttribute("data-theme");apply(c==="dark"?"light":"dark")});
+var hb=document.getElementById("hamburgerBtn"),sb=document.getElementById("sidebar"),ov=document.getElementById("sidebarOverlay");
+function close(){sb.classList.remove("open");ov.classList.remove("show")}
+hb.addEventListener("click",function(){sb.classList.toggle("open");ov.classList.toggle("show")});
+ov.addEventListener("click",close);
+document.querySelectorAll(".sidebar-nav a").forEach(function(a){a.addEventListener("click",close)});
+var secs=document.querySelectorAll(".section[id]"),links=document.querySelectorAll(".sidebar-nav a");
+function set(id){links.forEach(function(l){l.classList.toggle("active",l.getAttribute("href")==="#"+id)})}
+if("IntersectionObserver"in window){var obs=new IntersectionObserver(function(e){e.forEach(function(en){if(en.isIntersecting)set(en.target.id)})},{rootMargin:"-80px 0px -60% 0px",threshold:0});secs.forEach(function(s){obs.observe(s)})}
+})();
+</script>
+</body>
+</html>
