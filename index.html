@@ -173,6 +173,7 @@ details > p{margin:0 16px 16px;color:var(--ts)}
 <li><strong>Auto-detection of text direction</strong> (RTL for Arabic/Hebrew, LTR for Latin/Greek/Cyrillic).</li>
 <li><strong>Find and Replace</strong> with case-sensitive search, forward/backward navigation, and match counting.</li>
 <li><strong>Click-through paths and links</strong> &mdash; hover a URL or file path in your text and hold <strong>Ctrl</strong>: the cursor turns into a hand and a click opens it &mdash; URLs in your browser (<code>www.</code> addresses included) and paths in Explorer with the file selected.</li>
+<li><strong>Clickable task checkboxes</strong> &mdash; click a <code>[ ]</code> or <code>[x]</code> box to flip it in place (one undo reverses it); fenced blocks stay literal text, so a box-looking line inside one never toggles.</li>
 <li>Full keyboard shortcut support (copy, paste, select all, save, etc.).</li>
 <li>Scroll position are <strong>persisted per tab</strong>, so you return exactly where you left off.</li>
 </ul>
@@ -339,6 +340,11 @@ details > p{margin:0 16px 16px;color:var(--ts)}
 <tr><td>Ctrl + Shift + U</td><td>Transform Selection &rarr; UPPERCASE</td></tr>
 <tr><td>Ctrl + Shift + L</td><td>Transform Selection &rarr; lowercase</td></tr>
 <tr><td>Ctrl + Shift + K</td><td>Transform Selection &rarr; Title Case</td></tr>
+<tr><td>Ctrl + B</td><td>Wrap the selection in <code>**</code> markers &mdash; press again to unwrap; with no selection the pair is inserted around the caret</td></tr>
+<tr><td>Ctrl + I</td><td>Wrap the selection in <code>*</code> markers &mdash; press again to unwrap; with no selection the pair is inserted around the caret</td></tr>
+<tr><td>Tab</td><td>Indent the selected lines by one level (4 spaces); with no selection, indentation is inserted at the caret</td></tr>
+<tr><td>Shift + Tab</td><td>Outdent the selected lines by one level; with no selection, outdents the caret's line</td></tr>
+<tr><td>Ctrl + Scroll</td><td>Zoom the editor text in or out (6&ndash;72 pt; persists and syncs with the Settings font size)</td></tr>
 </tbody></table>
 </div>
 </section>
@@ -354,6 +360,7 @@ details > p{margin:0 16px 16px;color:var(--ts)}
 <tr><td>Ctrl + Shift + T</td><td>Align Top</td><td>Insert Date + Time</td></tr>
 <tr><td>Ctrl + Shift + D</td><td>Distribute Horizontal</td><td>Insert Today&apos;s Date</td></tr>
 <tr><td>Ctrl + Shift + K</td><td>&mdash;</td><td>Transform &rarr; Title Case</td></tr>
+<tr><td>Ctrl + I</td><td>Import Images</td><td>Wrap in <code>*</code> (Italic)</td></tr>
 </tbody></table>
 </div>
 <div class="callout warning"><strong>Note:</strong> These conflicts exist because Canvas and Editor are separate contexts. Each hotkey performs the action appropriate for the currently active mode.</div>
@@ -380,4 +387,3 @@ if("IntersectionObserver"in window){var obs=new IntersectionObserver(function(e)
 </script>
 </body>
 </html>
-
